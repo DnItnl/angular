@@ -1,0 +1,89 @@
+<div class="pt-24 flex justify-center items-center   ">
+<hlm-tabs tab="login" class="w-11/12 sm:w-2/3 md:w-5/12 ">
+  <hlm-tabs-list class="w-full grid grid-cols-2 " aria-label="tabs example">
+    <button hlmTabsTrigger="login">Login</button>
+    <button hlmTabsTrigger="account">Create account</button>
+  </hlm-tabs-list>
+  <div hlmTabsContent="account">
+      <section hlmCard>
+          <div hlmCardHeader>
+              <h3 hlmCardTitle>Create new account</h3>
+              <p hlmCardDescription>{{createDescription}}</p>
+          </div>
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <p  hlmCardContent>
+              <label class="block my-4" hlmLabel>
+                <div class="flex justify-between">
+                    Name
+                    @if(rName.touched && rName.hasError('required')){<span>Username is required</span>}
+                    @if(rName.touched && rName.hasError('minlength')){<span>Username must not be less than 3 characters</span>}
+                </div> 
+                  <input class="mt-1.5 w-full"  formControlName="username"  hlmInput />
+              </label>
+              <label class="block my-4" hlmLabel>
+                <div class="flex justify-between">
+                    Email
+                  @if(rEmail.touched && rEmail.hasError('required')){<span>Email is required</span>}
+                  @if(rEmail.touched && rEmail.hasError('email')){<span>Email must be valid</span>}
+                </div>  
+                  <input class="mt-1.5 w-full"   formControlName="email" type="email" hlmInput />
+              </label>
+              <label class="block my-4"    hlmLabel>
+                <div class="flex justify-between">
+                    Password
+                    @if(rPassword.touched && rPassword.hasError('required')){<span>Password is required</span>}
+                    @if(rPassword.touched && rPassword.hasError('minlength')){<span>Password must not be less than 6 characters</span>}
+                </div> 
+                  <input class="mt-1.5 w-full" formControlName="password" type="password"  hlmInput />
+              </label>
+              <label class="block my-4" hlmLabel>
+                <div class="flex justify-between">
+                    Password confirm
+                    @if(rPasswordConfirm.touched && registerForm.hasError('passwordsNotMatching')){<span>Password not matching</span>}
+                </div> 
+                  <input class="mt-1.5 w-full" formControlName="passwordConfirm"  type="password"  hlmInput />
+              </label>
+          </p>
+          <div hlmCardFooter>
+              <button type="submit" [disabled]="!registerForm.valid"  hlmBtn>Create Account</button>
+          </div>
+        </form>
+      </section>
+  </div>
+  <div hlmTabsContent="login">
+      <section hlmCard>
+          <div hlmCardHeader>
+              <h3 hlmCardTitle>Login</h3>
+              <p hlmCardDescription>{{loginDescription}}</p>
+          </div>
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+          
+         
+          <p hlmCardContent>
+              <label class="block my-4" hlmLabel>
+                <div class="flex justify-between">
+                    Email
+                  @if(lEmail.touched && lEmail.hasError('required')){<span>Email is required</span>}
+                  @if(lEmail.touched && lEmail.hasError('email')){<span>Email must be valid</span>}
+                </div>  
+                <input class="mt-1.5 w-full" formControlName="email" type="email" hlmInput />
+              </label>
+              <label class="block my-4" hlmLabel>
+                <div class="flex justify-between">
+                    Password
+                    @if(lPassword.touched && lPassword.hasError('required')){<span>Password is required</span>}
+                    @if(lPassword.touched && lPassword.hasError('minlength')){<span>Password must not be less than 6 characters</span>}
+                </div>  
+                <input class="mt-1.5 w-full" formControlName="password" type="password" hlmInput />
+              </label>
+          </p>
+          <div hlmCardFooter>
+              <button type="submit" [disabled]="!loginForm.valid" hlmBtn>Login</button>
+          </div>
+        </form>
+      </section>
+  </div>
+</hlm-tabs> 
+</div>
+
+<hlm-toaster />
