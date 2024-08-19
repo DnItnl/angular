@@ -11,6 +11,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 4200
 
-RUN npm start
+
+EXPOSE 4200

@@ -1,0 +1,9 @@
+
+<div class="min-w-12 h-10 fixed bg-[hsl(var(--popover))]    ">
+<hlm-icon size="xs"class="h-6 w-6 p-1"  name="lucideMoveVertical" />
+<hlm-icon size="xs" class="h-6 w-6 p-1"   name="lucideVolume{{ volume }}" />
+</div>
+<div class="min-w-12"></div>
+@for(sound of sounds; track sound){
+<app-note class="min-w-10 rounded-sm " [volume]=0/>
+}

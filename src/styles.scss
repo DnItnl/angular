@@ -1,3 +1,39 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the theme object.
+$angular-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+:root {
+  @include mat.all-component-themes($angular-theme);
+}
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($theme);
 @import '@angular/cdk/overlay-prebuilt.css';
 
 @tailwind base;
@@ -32,23 +68,32 @@
 }
 
 .dark {
---background: 240 10% 3.9%;
---foreground: 0 0% 98%;
---card: 240 10% 3.9%;
---card-foreground: 0 0% 98%;
---popover: 240 10% 3.9%;
---popover-foreground: 0 0% 98%;
---primary: 0 0% 98%;
---primary-foreground: 240 5.9% 10%;
---secondary: 240 3.7% 15.9%;
---secondary-foreground: 0 0% 98%;
---muted: 240 3.7% 15.9%;
---muted-foreground: 240 5% 64.9%;
---accent: 240 3.7% 15.9%;
---accent-foreground: 0 0% 98%;
---destructive: 0 62.8% 30.6%;
---destructive-foreground: 0 0% 98%;
---border: 240 3.7% 15.9%;
---input: 240 3.7% 15.9%;
---ring: 240 4.9% 83.9%;
+  --background: 220 10% 15%; /* Основной серый цвет, близкий к #1e2025 */
+  --foreground: 220 13% 96%; /* Светлый текст */
+  --card: 220 10% 18%; /* Серый фон для карточек */
+  --card-foreground: 220 13% 96%; /* Светлый текст */
+  --popover: 220 10% 18%; /* Серый фон для поповеров */
+  --popover-foreground: 220 13% 96%; /* Светлый текст */
+  --primary: 168 60% 35%; /* Второстепенный цвет #168374 */
+  --primary-foreground: 220 13% 96%; /* Светлый текст */
+  --secondary: 173 80% 48%; /* Второстепенный цвет #0bd8b9 */
+  --secondary-foreground: 220 13% 96%; /* Светлый текст */
+  --muted: 220 10% 25%; /* Приглушенный серый */
+  --muted-foreground: 220 13% 96%; /* Светлый текст */
+  --accent: 50 80% 56%; /* Акцентный цвет #e5cf62 */
+  --accent-foreground: 220 13% 96%; /* Светлый текст */
+  --destructive: 285 80% 56%; /* Акцентный цвет #bc35e9 */
+  --destructive-foreground: 220 13% 96%; /* Светлый текст */
+  --border: 220 10% 18%; /* Цвет границ */
+  --input: 220 10% 15%; /* Цвет полей ввода */
+  --ring: 168 60% 35%; /* Зелёный обвод */
+  --radius: 0.5rem;
 }
+
+
+    body{
+      // background-color: #19121A;
+    }
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

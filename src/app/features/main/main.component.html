@@ -1,0 +1,13 @@
+<div class="h-screen flex flex-col" >
+  <app-navbar />
+  <hlm-carousel [options]="options" #carousel  class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+    <hlm-carousel-content style="min-height: calc(100vh - 48px)">
+      <hlm-carousel-item>
+        <app-playground (dndEvent)="hasCarousel($event)" />
+      </hlm-carousel-item>
+      <hlm-carousel-item>
+        <app-chat />
+      </hlm-carousel-item>
+    </hlm-carousel-content>
+  </hlm-carousel>
+</div>

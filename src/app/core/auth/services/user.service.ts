@@ -22,7 +22,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
   create(user: UserI): Observable<UserI> {
     
-    return this.http.post<UserI>('api/users/register', user).pipe(
+    return this.http.post<UserI>('nest/users/register', user).pipe(
       tap((createdUser: UserI) =>   
         toast('User '+createdUser.username+' created successfully', {
         description: new Date().toLocaleDateString('en-US', this.dateOptions),

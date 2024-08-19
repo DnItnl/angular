@@ -1,0 +1,95 @@
+<div class="container h-screen">
+  <mat-card>
+    <div class="flex">
+      <div>
+        <h1>My Chatrooms</h1>
+        <button mat-button [routerLink]="['../create-room']">
+          Create new Room
+        </button>
+        <mat-selection-list
+          [multiple]="false"
+          (selectionChange)="onSelectRoom($event)"
+        >
+          @for (room of (rooms$ | async)?.items; track room.id) {
+          <mat-list-option [value]="room">
+            Name: {{ room.name }} Id: {{ room.id }}
+            <mat-divider></mat-divider>
+          </mat-list-option>
+          }
+        </mat-selection-list>
+        <mat-paginator
+          [length]="(rooms$ | async)?.meta?.totalItems"
+          [pageIndex]="(rooms$ | async)?.meta?.currentPage"
+          [pageSize]="(rooms$ | async)?.meta?.itemCount"
+          (page)="onPaginateRooms($event)"
+          [pageSizeOptions]="[10, 25, 50]"
+        ></mat-paginator>
+      </div>
+
+      <div style="margin-left: 40px">
+        <h1>My Room</h1>
+        {{ selectedRoom | json }}
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<!-- ///////////////////////////////////////////////////////////////// -->
+<!-- <hlm-table class="w-full min-h-screen min-w-[400px] text-[hsl(var(--foreground))]" > -->
+<!-- <hlm-caption>A list of your recent invoices.</hlm-caption> -->
+<!-- <hlm-trow  >
+      <hlm-th class="w-52">name</hlm-th>
+      <hlm-th class="w-60">id</hlm-th>
+      <hlm-th class="flex-1">soon</hlm-th>
+      <hlm-th class="justify-end w-40">soon</hlm-th>
+    </hlm-trow>
+ -->
+
+<!-- @for (room of rooms$?.items ; track room.id) {
+      <hlm-trow routerLink="/room/{{room.name}}">
+        <hlm-td truncate class="font-medium w-52">{{ room.id }}</hlm-td>
+        <hlm-td class="w-60">{{ room.name}}</hlm-td>
+        <hlm-td class="flex-1">*</hlm-td>
+        <hlm-td class="justify-end w-40">*</hlm-td>
+      </hlm-trow>
+    } -->
+
+<!-- @for (room of (rooms$ | async)?.items; track room.id) {
+      <hlm-trow routerLink="/room/{{room.name}}">
+        <hlm-td truncate class="font-medium w-52">{{ room.id }}</hlm-td>
+        <hlm-td class="w-60">{{ room.name}}</hlm-td>
+        <hlm-td class="flex-1">*</hlm-td>
+        <hlm-td class="justify-end w-40">*</hlm-td>
+      </hlm-trow>
+    } -->
+<!-- <hlm-trow class="bg-muted/50 hover:bg-muted">
+      <hlm-td truncate class="w-[100px] font-semibold">Total</hlm-td>
+      <hlm-td class="w-40"></hlm-td>
+      <hlm-td class="flex-1"></hlm-td>
+      <hlm-td class="justify-end w-40">$2,500.00</hlm-td>
+    </hlm-trow> -->
+<!-- </hlm-table> -->
+
+<!-- 
+  <nav hlmPagination class="text-[hsl(var(--foreground))] bg-[hsl(var(--ring))]   fixed bottom-0" >
+    <ul hlmPaginationContent  >
+        <li hlmPaginationItem>
+            <hlm-pagination-previous link="/components/menubar"  />
+        </li>
+        <li hlmPaginationItem>
+            <a hlmPaginationLink link="#">1</a>
+        </li>
+        <li hlmPaginationItem>
+            <a hlmPaginationLink link="#" isActive>2</a>
+        </li>
+        <li hlmPaginationItem>
+            <a hlmPaginationLink link="#">3</a>
+        </li>
+        <li hlmPaginationItem>
+            <hlm-pagination-ellipsis />
+        </li>
+        <li hlmPaginationItem>
+            <hlm-pagination-next link="/components/popover" />
+        </li>
+    </ul>
+  </nav> -->
