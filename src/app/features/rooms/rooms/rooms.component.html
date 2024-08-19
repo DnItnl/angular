@@ -3,9 +3,10 @@
     <div class="flex">
       <div>
         <h1>My Chatrooms</h1>
-        <button mat-button [routerLink]="['../create-room']">
+        <button mat-button routerLink="create-room">
           Create new Room
         </button>
+        @if((rooms$ | async)?.items!.length > 0 ) {
         <mat-selection-list
           [multiple]="false"
           (selectionChange)="onSelectRoom($event)"
@@ -17,6 +18,9 @@
           </mat-list-option>
           }
         </mat-selection-list>
+      } @else{
+        <p>NO ROOMS</p>
+      }
         <mat-paginator
           [length]="(rooms$ | async)?.meta?.totalItems"
           [pageIndex]="(rooms$ | async)?.meta?.currentPage"

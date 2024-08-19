@@ -9,6 +9,8 @@ import { Component, HostBinding, HostListener, Input } from '@angular/core';
 })
 export class NoteComponent {
   @Input() volume: 0 | 1 | 2 | 3= 0;
+
+  
   private colors= {
     0 : "#1e2025",
     1 : "#168374",

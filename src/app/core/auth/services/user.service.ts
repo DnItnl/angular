@@ -4,28 +4,34 @@ import { UserI } from '../../../shared/models/user.interface';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { toast } from 'ngx-sonner';
 
+export const   dateOptions: any = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+  hour12: true
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  dateOptions: any = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: true
-};
 
   constructor(private http: HttpClient) { }
+
+
+  findByUsername(username: string): Observable<UserI[]> {
+    return this.http.get<UserI[]>('http://localhost:3000/nest/users/find-by-username?username=' + username);
+  }
   create(user: UserI): Observable<UserI> {
-    
-    return this.http.post<UserI>('nest/users/register', user).pipe(
+    // 'nest/users/register'
+    return this.http.post<UserI>('http://localhost:3000/nest/users/register', user).pipe(
       tap((createdUser: UserI) =>   
         toast('User '+createdUser.username+' created successfully', {
-        description: new Date().toLocaleDateString('en-US', this.dateOptions),
+        description: new Date().toLocaleDateString('en-US', dateOptions),
         action: {
 
           label: 'close',

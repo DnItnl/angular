@@ -16,7 +16,8 @@ export class AuthService {
 
 
   login(user: UserI): Observable<LoginResponseI> {
-    return this.http.post<LoginResponseI>('nest/users/login', user).pipe(
+    // 'nest/users/login'
+    return this.http.post<LoginResponseI>('http://localhost:3000/nest/users/login', user).pipe(
       tap((response: LoginResponseI)=> localStorage.setItem('nest-token', response.access_token)),
       tap(()=>       toast("Login successfully", {
         description:  "Welcome back!",

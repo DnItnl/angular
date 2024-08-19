@@ -3,10 +3,16 @@
  <div cdkDropList class="boundary  h-full" (cdkDropListDropped)="drop($event)" style="overflow: auto; " >
     <!-- <div style="width: 2400px; height: 200px; background-color: azure;"></div> -->
     @for (movie of movies; track movie) {
-        <app-sound cdkDrag   class="bg-[hsl(var(--background))] h-10" (cdkDragStarted)="onTake($event)" (cdkDragEnded)="onTake($event)" cdkDragBoundary=".boundary"  [columns]="50"  >
-            <!-- <div  class="bg-[hsl(var(--muted))]  border border-[hsl(var(--accent))]  text-[hsl(var(--accent))]   h-8" *cdkDragPlaceholder></div>  -->
+        <app-sound cdkDrag   class="bg-[hsl(var(--background))] h-10" (cdkDragStarted)="onTake($event)" cdkDragLockAxis="y" (cdkDragEnded)="onTake($event)" cdkDragBoundary=".boundary"  [columns]="50"  >
+            <!-- <div  class="bg-[hsl(var(--muted))]  border border-[hsl(var(--accent))]  text-[hsl(var(--accent))]   h-10" *cdkDragPlaceholder></div>  -->
+            <!-- <app-sound  *cdkDragPlaceholder  ></app-sound> -->
             <!-- todo use ng-template -->
         </app-sound>
     }
 </div>
 
+
+<button class="absolute right-5 bottom-5 z-40" (click)="onChat()" hlmBtn>
+    <hlm-icon size="sm" class="mr-2" name="lucideMessagesSquare" />
+    Chat
+</button>

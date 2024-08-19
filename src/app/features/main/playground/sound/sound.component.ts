@@ -1,8 +1,6 @@
 import { style } from '@angular/animations';
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
-import { BrnToggleDirective } from '@spartan-ng/ui-toggle-brain';
 import {
   lucideVolumeX,
   lucideVolume,
@@ -12,10 +10,12 @@ import {
 } from '@ng-icons/lucide';
 import { Sound } from './sound-interface';
 import { NoteComponent } from './note/note.component';
+import { HlmCheckboxComponent } from '@spartan-ng/ui-checkbox-helm';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-sound',
   standalone: true,
-  imports: [BrnToggleDirective, HlmToggleDirective, HlmIconComponent, NoteComponent],
+  imports: [HlmIconComponent, NoteComponent, MatButtonModule],
   templateUrl: './sound.component.html',
   styleUrl: './sound.component.scss',
   providers: [
@@ -27,7 +27,13 @@ import { NoteComponent } from './note/note.component';
   },
 })
 export class SoundComponent implements OnInit {
+  
   protected volume: 0 | 1 | 2 | -1 = 2;
+  protected mute: boolean=false;
+  
+  onMute(){
+    this.mute = !this.mute;
+  }
   ngOnInit(): void {
     this.fillSounds();
   }
@@ -37,6 +43,8 @@ export class SoundComponent implements OnInit {
   //     .fill(0)
   //     .map((_, i) => i + 1);
   // }
+
+
 
   protected sounds: Sound[] = [];
 

@@ -27,10 +27,13 @@ import {
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-chats-list',
   standalone: true,
   imports: [
+
+    
     RouterLink,
     MatPaginatorModule,
     MatListModule,
@@ -52,18 +55,22 @@ import {
     HlmTdComponent,
     HlmCaptionComponent,
   ],
-  templateUrl: './chats-list.component.html',
-  styleUrl: './chats-list.component.scss',
+  templateUrl: './rooms.component.html',
+  styleUrl: './rooms.component.scss',
   host: {
     class: 'w-full overflow-x-auto',
   },
 })
-export class DashboardComponent implements OnInit {
-  protected rooms$ = this.chatService.getMyRooms();
+export class RoomsComponent implements OnInit {
+  protected rooms$: Observable<RoomPaginateI> = this.chatService.getMyRooms();
 
   selectedRoom = null;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+    this.chatService.emitPaginateRooms(10, 0);
+    // this.chatService.createRoom();
+  }
 
   constructor(private chatService: ChatService) {}
 
@@ -76,6 +83,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onPaginateRooms(pageEvent: PageEvent) {
+    console.log(pageEvent);
+    
     this.chatService.emitPaginateRooms(pageEvent.pageSize, pageEvent.pageIndex);
   }
 }

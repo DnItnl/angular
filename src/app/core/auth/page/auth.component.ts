@@ -1,7 +1,9 @@
 
 import {
   Component,
+  ElementRef,
   HostBinding,
+  ViewChild,
 } from '@angular/core';
 
 import {
@@ -109,6 +111,8 @@ export class AuthComponent {
   // loginForm: any;
   //#endregion
 
+  @ViewChild('loginTab') loginTab!: ElementRef<HTMLButtonElement>;
+
   constructor(
     private userService: UserService,
     private authService: AuthService, 
@@ -138,12 +142,15 @@ export class AuthComponent {
   }
   register() {    
     if(this.registerForm.valid){
-      this.userService.create(this.registerForm.value).subscribe();
-      // .subscribe((a) => {
-      //   console.log(a);
-        
+      this.userService.create(this.registerForm.value)
+      .subscribe((a) => {
         // this.router.navigate(['/']);
-      // });
+        this.loginTab.nativeElement.click();
+        this.loginForm.setValue({
+          email: this.registerForm.value.email,
+          password: this.registerForm.value.password
+        });
+      });
     }
   }
 

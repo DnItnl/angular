@@ -59,10 +59,19 @@ export class MainComponent {
 
   @HostListener("document:keydown.control.ArrowLeft", ["$event"])
   left(event: KeyboardEvent) {
-    this.carousel.scrollPrev();
+    this.prevCarousel();
   }
   @HostListener("document:keydown.control.ArrowRight", ["$event"])
-  right(event: KeyboardEvent) {
+  right(event: KeyboardEvent| null) {
+    this.nextCarousel();
+  }
+
+  nextCarousel(){
     this.carousel.scrollNext();
   }
+  prevCarousel(){
+    this.carousel.scrollPrev();
+  }
+
+
 }

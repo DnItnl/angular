@@ -1,9 +1,13 @@
 
-<div class="min-w-12 h-10 fixed bg-[hsl(var(--popover))]    ">
-<hlm-icon size="xs"class="h-6 w-6 p-1"  name="lucideMoveVertical" />
-<hlm-icon size="xs" class="h-6 w-6 p-1"   name="lucideVolume{{ volume }}" />
-</div>
-<div class="min-w-12"></div>
-@for(sound of sounds; track sound){
-<app-note class="min-w-10 rounded-sm " [volume]=0/>
+<!-- <button  size="lg" brnToggle  class="h-10 w-10  fixed" hlm>
+ 
+<hlm-icon  size="lg"  name="lucideVolume{{ volume }}" />
+</button> -->
+
+  <hlm-icon  size="base" class="h-10 w-10 p-2 fixed bg-[hsl(var(--background))]" (click)="onMute()" [style.color]="mute ? '#4b2e57b6' : '#bc35e9d1'"  [name]="mute ? 'lucideVolumeX' : 'lucideVolume2'" />
+
+
+<div class="min-w-10"></div>
+@for(sound of sounds; track sound; let i = $index){
+<app-note class="min-w-10 rounded-sm" [class]="mute? 'opacity-45' : ''" [volume]=0 />
 }
