@@ -1,31 +1,33 @@
-
+<div class="flex justify-start gap-20">
 <input
-  class="w-80"
+  class="w-3/5 mb-4" 
   hlmInput
   #search
   placeholder="Search user by username"
-  [(ngModel)]="searchUsername.value"
+  
   (input)="SearchUser()"
+  [formControl]="searchUsername"
+  
 />
-<div class="flex flex-row w-full justify-between">
-<div class="pl-2 pt-3 h-56 overflow-auto">
+
+<button hlmBtn type="button" [disabled]="!selectedUser" (click)="addUserToForm()">Add User</button>
+</div>
+<div class="flex flex-row w-3/5 justify-between h-56">
 @if(searchUsername.value){
-<div class="w-80 grid gap-4">
-  <div class="space-y-2">
-    <h4 class="font-medium leading-none">Users:</h4>
+<div class="w-full grid gap-4 rounded-lg border-[hsl(var(--ring))] border">
+  <div class="">
+    <h4 class="font-medium leading-none pl-3 pt-3">Users:</h4>
   </div>
 
-  <div class="grid gap-2">
+    <hlm-table class="w-full h-full overflow-auto">
     @for(user of filteredUsers; track user){
-    <div class="flex items-center space-x-3">
-      <h5>{{ user.username }}</h5>
-    </div>
+    
+        <hlm-trow (click)="setSelectedUser(user)" class="border-[hsl(var(--muted))] border">
+          <hlm-td truncate class="font-medium h-8 w-52">{{user.username}}</hlm-td>
+        </hlm-trow>
     }
-  </div>
+  </hlm-table>
+ 
 </div>
-} @else {
-<h4>Enter username</h4>
 }
-</div>
-  <p>info</p>
 </div>

@@ -8,6 +8,7 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { BrnDialogContentDirective, BrnDialogTriggerDirective } from '@spartan-ng/ui-dialog-brain';
 import { HlmDialogComponent, HlmDialogContentComponent, HlmDialogDescriptionDirective, HlmDialogFooterComponent, HlmDialogHeaderComponent, HlmDialogTitleDirective } from '@spartan-ng/ui-dialog-helm';
 import { SelectUsersComponent } from "../select-users/select-users.component";
+import { UserI } from '../../../shared/models/user.interface';
 
 
 @Component({
@@ -59,6 +60,25 @@ create() {
     
   }
 
+
+
+
+
+
+
+  removeUser(userId: number) {
+    this.users.removeAt(this.users.value.findIndex((user: UserI) => user.id === userId));
+  }
+  initUser(user: UserI) {
+    return new FormControl({
+      id: user.id,
+      username: user.username,
+      email: user.email
+    });
+  }
+  addUser(userFormControl: FormControl) {
+    this.users.push(userFormControl);
+  }
   get name(): FormControl{
     return this.form.get('name') as FormControl
   }

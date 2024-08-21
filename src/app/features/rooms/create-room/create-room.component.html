@@ -1,28 +1,38 @@
-<div class="pt-20 md:px-80 mx-auto md:container" >
-<section hlmCard>
-  <div class="w-11/12 sm:w-2/3 md:w-5/12 " hlmCardHeader>
+<div class="pt-20 md:px-80 mx-auto md:container">
+  <section hlmCard>
+    <div class="w-11/12 sm:w-2/3 md:w-5/12" hlmCardHeader>
       <h3 hlmCardTitle>Create new room</h3>
       <!-- <p hlmCardDescription>{{createDescription}}</p> -->
-  </div>
-  <form [formGroup]="form" (onSubmit)="create()" > 
-  <p  hlmCardContent>
-      <label class="block my-4" hlmLabel>
-        <div class="flex justify-between">
-            Name
-            @if(form.touched && form.hasError('required')){<span>Room name is required</span>}
-        </div> 
-          <input class="mt-1.5 w-full"  formControlName="name"  hlmInput />
-      </label>
-      <label class="block my-4" hlmLabel>
-        <div class="flex justify-between">
-            Description
-        </div>  
-        <textarea class="min-h-[80px] mt-1.5 w-full"  formControlName="description" hlmInput ></textarea>
-      </label>
-      <app-select-users></app-select-users>
-  </p>
-  <div hlmCardFooter>
-      <button type="submit" [disabled]="!form.valid"  hlmBtn>Create Room</button>
-  </div>
-</form>
-</section></div>
+    </div>
+    <form [formGroup]="form" (onSubmit)="create()">
+      <p hlmCardContent>
+        <label class="block my-4" hlmLabel>
+          <div class="flex justify-between">
+            Name @if(form.touched && form.hasError('required')){<span
+              >Room name is required</span
+            >}
+          </div>
+          <input class="mt-1.5 w-full" formControlName="name" hlmInput />
+        </label>
+        <label class="block my-4" hlmLabel>
+          <div class="flex justify-between">Description</div>
+          <textarea
+            class="min-h-[80px] mt-1.5 w-full"
+            formControlName="description"
+            hlmInput
+          ></textarea>
+        </label>
+        <app-select-users
+          [users]="users.value"
+          (addUser)="addUser(initUser($event))"
+          (removeuser)="removeUser($event.id)"
+        ></app-select-users>
+      </p>
+      <div hlmCardFooter>
+        <button type="submit" [disabled]="!form.valid" hlmBtn>
+          Create Room
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
