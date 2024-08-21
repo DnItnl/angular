@@ -28,12 +28,11 @@ import {
   PageEvent,
 } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
+import { ChatComponent } from '../chat/chat.component';
 @Component({
   selector: 'app-chats-list',
   standalone: true,
   imports: [
-
-    
     RouterLink,
     MatPaginatorModule,
     MatListModule,
@@ -54,7 +53,8 @@ import { Observable } from 'rxjs';
     HlmThComponent,
     HlmTdComponent,
     HlmCaptionComponent,
-  ],
+    ChatComponent
+],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
   host: {

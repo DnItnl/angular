@@ -21,15 +21,16 @@
             formControlName="description"
             hlmInput
           ></textarea>
-        </label>
+        </label>  
+        
         <app-select-users
           [users]="users.value"
           (addUser)="addUser(initUser($event))"
-          (removeuser)="removeUser($event.id)"
+          (removeuser)="removeUser($event.id!)"
         ></app-select-users>
       </p>
       <div hlmCardFooter>
-        <button type="submit" [disabled]="!form.valid" hlmBtn>
+        <button type="submit" (click)="create()" [disabled]="!form.valid" hlmBtn>
           Create Room
         </button>
       </div>

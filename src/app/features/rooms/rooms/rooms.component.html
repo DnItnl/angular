@@ -1,13 +1,12 @@
-<div class="container h-screen">
+<div class="micontainer h-screen">
   <mat-card>
     <div class="flex">
       <div>
-        <h1>My Chatrooms</h1>
-        <button mat-button routerLink="create-room">
-          Create new Room
-        </button>
+        <h1>My rooms</h1>
+        <button mat-button routerLink="create-room">Create new Room</button>
         @if((rooms$ | async)?.items!.length > 0 ) {
         <mat-selection-list
+          class="rooms"
           [multiple]="false"
           (selectionChange)="onSelectRoom($event)"
         >
@@ -18,21 +17,20 @@
           </mat-list-option>
           }
         </mat-selection-list>
-      } @else{
+        } @else{
         <p>NO ROOMS</p>
-      }
+        }
         <mat-paginator
           [length]="(rooms$ | async)?.meta?.totalItems"
           [pageIndex]="(rooms$ | async)?.meta?.currentPage"
-          [pageSize]="(rooms$ | async)?.meta?.itemCount"
+          [pageSize]="(rooms$ | async)?.meta?.itemsPerPage"
           (page)="onPaginateRooms($event)"
           [pageSizeOptions]="[10, 25, 50]"
         ></mat-paginator>
       </div>
 
-      <div style="margin-left: 40px">
-        <h1>My Room</h1>
-        {{ selectedRoom | json }}
+      <div class="chatroom">
+        <app-chat [chatRoom]="selectedRoom!"></app-chat>
       </div>
     </div>
   </mat-card>

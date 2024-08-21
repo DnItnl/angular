@@ -135,7 +135,7 @@ export class AuthComponent {
         email: this.lEmail.value,
         password: this.lPassword.value
       }).pipe(
-        tap(() => this.router.navigate(['/']))
+        tap(() => this.router.navigate(['rooms']))
       ).subscribe()
       
     }

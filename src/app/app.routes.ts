@@ -5,19 +5,12 @@ import { MainComponent } from "./features/main/main.component";
 
 export const routes: Routes = [
   {
-    path: "private",
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import("./features/private/private.routes").then(
-        (mod) => mod.PRIVATE_ROUTES,
-      ),
-  },
-  {
     path: "auth",
     loadChildren: () =>
       import("./core/auth/auth.routes").then((mod) => mod.AUTH_ROUTES),
   },
-  { path: "rooms", loadChildren: () =>
+  { path: "rooms",
+    canActivate: [authGuard], loadChildren: () =>
     import("./features/rooms/rooms.routes").then((mod) => mod.ROOMS_ROUTES), },
   { path: "room/:name", component: MainComponent },
 ];

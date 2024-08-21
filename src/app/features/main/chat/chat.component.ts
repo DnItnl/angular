@@ -5,7 +5,7 @@ import { HlmButtonDirective } from "../../../../../libs/ui/ui-button-helm/src/li
 import { HlmIconComponent } from "../../../../../libs/ui/ui-icon-helm/src/lib/hlm-icon.component";
 
 @Component({
-  selector: "app-chat",
+  selector: "app-chat-slide",
   standalone: true,
   imports: [HlmButtonDirective, HlmIconComponent],
   providers: [provideIcons({ lucideListMusic })],

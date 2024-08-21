@@ -1,33 +1,75 @@
-<div class="flex justify-start gap-20">
+<div class="flex justify-start w-full h-56">
+  <div class="flex flex-col w-2/5">
 <input
-  class="w-3/5 mb-4" 
+  class="w-11/12 mb-4 " 
   hlmInput
   #search
   placeholder="Search user by username"
   
   (input)="SearchUser()"
   [formControl]="searchUsername"
-  
 />
 
-<button hlmBtn type="button" [disabled]="!selectedUser" (click)="addUserToForm()">Add User</button>
+
+
+<div class="w-11/12 h-full overflow-auto flex flex-col relative rounded-lg border-[hsl(var(--muted))] p-1 border">
+  
+  @for(user of users; track user){
+    <brn-popover sideOffset="5" class="p-0 m-0" closeDelay="100">
+    <button  brnPopoverTrigger hlmBadge>&#64;{{user.username}}</button>
+      <button hlmPopoverContent *brnPopoverContent="let ctx" class="w-20" (click)="removeUserFromForm(user)" variant='destructive' hlmBtn>Remove</button>
+  </brn-popover>
+  }
+   
+
+
+
 </div>
-<div class="flex flex-row w-3/5 justify-between h-56">
+
+</div>
+<div class="flex flex-col w-3/5 justify-between h-64">
 @if(searchUsername.value){
-<div class="w-full grid gap-4 rounded-lg border-[hsl(var(--ring))] border">
+<div class="w-full grid gap-4 h-56 relative rounded-lg border-[hsl(var(--muted))] border">
   <div class="">
     <h4 class="font-medium leading-none pl-3 pt-3">Users:</h4>
   </div>
 
     <hlm-table class="w-full h-full overflow-auto">
     @for(user of filteredUsers; track user){
-    
-        <hlm-trow (click)="setSelectedUser(user)" class="border-[hsl(var(--muted))] border">
-          <hlm-td truncate class="font-medium h-8 w-52">{{user.username}}</hlm-td>
+      <brn-hover-card>
+        
+        <hlm-trow brnHoverCardTrigger (click)="setSelectedUser(user)"  class="border-[hsl(var(--muted))] border">
+          <hlm-td truncate class="font-medium h-8 "> <hlm-avatar variant="small">
+            <img src="https://analogjs.org/img/logos/analog-logo.svg" alt="AnalogLogo" hlmAvatarImage />
+            <span class="text-red-800 bg-red-600" hlmAvatarFallback>AN</span>
+          </hlm-avatar></hlm-td>
+          <hlm-td truncate class="font-medium h-8">{{user.username}}</hlm-td>
         </hlm-trow>
+        <hlm-hover-card-content *brnHoverCardContent class="w-80">
+          <div class="flex justify-between space-x-4">
+            <hlm-avatar variant="large" >
+              <img src="https://analogjs.org/img/logos/analog-logo.svg" alt="AnalogLogo" hlmAvatarImage />
+              <span class="text-red-800 bg-red-600" hlmAvatarFallback>AN</span>
+            </hlm-avatar>
+            <div class="space-y-1">
+              <h4 class="text-sm font-semibold">&#64;{{user.username}}</h4>
+              <p class="text-sm">{{user.email}}</p>
+              <div class="flex items-center pt-2">
+                <hlm-icon name="lucideCalendar" class="w-4 h-4 mr-2 opacity-70" />
+                <span class="text-xs text-muted-foreground">Joined {{user.created_at | date:'longDate'}}</span>
+              </div>
+            </div>
+          </div>
+        </hlm-hover-card-content>
+      </brn-hover-card>
     }
+    
+<!-- <button hlmBtn type="button" class="absolute top-0 right-0" [disabled]="!selectedUser" (click)="addUserToForm()">Add User</button> -->
   </hlm-table>
  
 </div>
+
 }
 </div>
+</div>
+

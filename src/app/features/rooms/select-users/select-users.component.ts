@@ -23,7 +23,7 @@ import {
 } from '@spartan-ng/ui-popover-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import {
   HlmTableComponent,
   HlmTrowComponent,
@@ -33,10 +33,16 @@ import {
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { UserService } from '../../../core/auth/services/user.service';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
+import { HlmHoverCardModule } from '@spartan-ng/ui-hovercard-helm';
+import { HlmAvatarModule } from '@spartan-ng/ui-avatar-helm';
+import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { BrnHoverCardModule } from '@spartan-ng/ui-hovercard-brain';
+import { lucideCalendar } from '@ng-icons/lucide';
 @Component({
   selector: 'app-select-users',
   standalone: true,
   imports: [
+    DatePipe,
     HlmTableComponent,
     HlmTrowComponent,
     HlmTdComponent,
@@ -46,8 +52,22 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
     ReactiveFormsModule,
     AsyncPipe,
     HlmButtonDirective,
+    HlmBadgeDirective,
+    BrnHoverCardModule,
+    HlmHoverCardModule,
+    HlmIconComponent,
+    HlmAvatarModule,
+    BrnPopoverComponent,
+    BrnPopoverTriggerDirective,
+    BrnPopoverContentDirective,
+    BrnPopoverCloseDirective,
+    HlmPopoverContentDirective,
+    HlmPopoverCloseDirective,
+    HlmLabelDirective,
+    HlmInputDirective,
     ///remove:
   ],
+  providers: [provideIcons({ lucideCalendar })],
   templateUrl: './select-users.component.html',
   styleUrl: './select-users.component.scss',
 })
@@ -55,27 +75,26 @@ export class SelectUsersComponent implements OnInit {
   SearchUser() {
     console.log(this.filteredUsers);
     console.log(this.searchUsername.value);
-    
-    
   }
 
   @Input() users: UserI[] = [];
   @Output() addUser: EventEmitter<UserI> = new EventEmitter<UserI>();
-  @Output() removeUser: EventEmitter<UserI> = new EventEmitter<UserI>();
+  @Output() removeuser: EventEmitter<UserI> = new EventEmitter<UserI>();
   selectedUser: UserI | null = null;
 
   @ViewChild('search') search!: ElementRef<HTMLInputElement>;
   ngOnInit(): void {
- 
- console.log('init');
- 
-    this.searchUsername.valueChanges.pipe(
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap((username: string) => this.userService.findByUsername(username).pipe(
-        tap((users: UserI[]) => this.filteredUsers = users)
-      ))
-    ).subscribe();
+    this.searchUsername.valueChanges
+      .pipe(
+        debounceTime(400),
+        distinctUntilChanged(),
+        switchMap((username: string) =>
+          this.userService
+            .findByUsername(username)
+            .pipe(tap((users: UserI[]) => (this.filteredUsers = users)))
+        )
+      )
+      .subscribe();
   }
 
   constructor(private userService: UserService) {}
@@ -85,7 +104,7 @@ export class SelectUsersComponent implements OnInit {
   filteredUsers: UserI[] = [];
   addUserToForm() {
     console.log('addUserToForm');
-    
+
     this.addUser.emit(this.selectedUser!);
     this.filteredUsers = [];
     this.selectedUser = null;
@@ -93,19 +112,18 @@ export class SelectUsersComponent implements OnInit {
   }
 
   removeUserFromForm(user: UserI) {
-    console.log('removeUserFromForm');
-    
-    this.removeUser.emit(user);
+    this.removeuser.emit(user);
   }
 
   setSelectedUser(user: UserI) {
     console.log('setSelectedUser');
-    
+
     this.selectedUser = user;
+    this.addUserToForm();
   }
 
   displayFn(user: UserI) {
-    if(user) {
+    if (user) {
       return user.username;
     } else {
       return '';

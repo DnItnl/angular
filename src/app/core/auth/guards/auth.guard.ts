@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 
@@ -6,9 +7,9 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } fr
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   
   
-  console.log(localStorage.getItem('nest_token'));
+  console.log('from authGuard: ',localStorage.getItem('nest-token'));
   
   
   // return inject(Router).createUrlTree(['/auth']); 
-  return false;
+  return true;
 };
